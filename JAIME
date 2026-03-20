@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PsicoJaime — Consulta Online</title>
+    <meta name="description" content="Sistema de gestión de consulta psicológica" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+
+{
+  "name": "psicojaime",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.0",
+    "vite": "^5.0.0"
+  }
+}
+
+# 🧠 PsicoJaime — Gestión de Consulta de Psicología Online
+
+Aplicación web privada para la gestión integral de la consulta de psicología de Jaime.
+
+## ✅ Funcionalidades
+
+- 🔐 **Login seguro** con sesión de 8 horas
+- 📊 **Dashboard** con métricas y alertas de documentación pendiente
+- 👤 **Pacientes** — ficha completa, historia clínica, diagnósticos DSM-5/CIE-11
+- 📅 **Agenda** — gestión de citas por fecha
+- 📄 **Documentos legales** — Autorización RGPD + Consentimiento Informado (descargables para imprimir y firmar)
+- 🧾 **Facturación** — facturas, cobros, métodos de pago
+- 📈 **Finanzas** — gráficos, métricas, tasas de cobro
+- 💬 **Recordatorios** — mensajes WhatsApp/Email listos para copiar (citas de mañana automáticas)
+- 💾 **Datos persistentes** en localStorage (no se pierden al cerrar)
+
+---
+
+## 🚀 Despliegue en GitHub + Vercel (paso a paso)
+
+### Paso 1 — Cambiar la contraseña (IMPORTANTE)
+
+Abre el archivo `src/App.jsx` y busca estas dos líneas al principio:
+
+```js
+const VALID_USER = 'jaime'
+const VALID_PASS = 'PsicoJaime2025!'
+```
+
+Cámbia `VALID_PASS` por tu contraseña segura antes de subir el código.
+
+---
+
+### Paso 2 — Subir a GitHub
+
+1. Ve a [github.com](https://github.com) y crea una cuenta si no tienes
+2. Pulsa el botón verde **"New"** → ponle nombre `psicojaime` → **"Create repository"**
+3. En la página del repositorio vacío, pulsa **"uploading an existing file"**
+4. Arrastra y suelta **todos los archivos y carpetas** del proyecto:
+   - `package.json`
+   - `vite.config.js`
+   - `index.html`
+   - `README.md`
+   - carpeta `src/` completa (con todos los archivos dentro)
+5. Pulsa **"Commit changes"**
+
+---
+
+### Paso 3 — Desplegar en Vercel
+
+1. Ve a [vercel.com](https://vercel.com)
+2. Pulsa **"Sign up"** → **"Continue with GitHub"**
+3. Pulsa **"Add New Project"**
+4. Selecciona tu repositorio `psicojaime`
+5. Vercel detecta automáticamente que es un proyecto Vite/React
+6. Pulsa **"Deploy"**
+7. En 1-2 minutos tendrás tu URL: `psicojaime.vercel.app`
+
+---
+
+### Paso 4 — Usar la app desde cualquier ordenador
+
+- Accede a tu URL de Vercel desde cualquier navegador
+- Introduce usuario: `jaime` y tu contraseña
+- Los datos se guardan en el navegador (localStorage)
+
+> ⚠️ **Importante**: Los datos se guardan en el navegador donde uses la app.
+> Si abres la app en otro ordenador, no verás los mismos datos.
+> Para tener datos compartidos entre dispositivos, necesitarías añadir una base de datos (próximo paso).
+
+---
+
+## 🔒 Seguridad y RGPD
+
+- La app solo es accesible con usuario y contraseña
+- La sesión expira automáticamente a las 8 horas
+- Los documentos legales (RGPD + CI) son conformes a la normativa española
+- Los datos clínicos se almacenan localmente en tu navegador (no se envían a ningún servidor externo)
+- Se recomienda usar la app en un dispositivo personal y no compartido
+
+---
+
+## 🛠️ Desarrollo local (opcional)
+
+Si tienes Node.js instalado:
+
+```bash
+npm install
+npm run dev
+```
+
+La app se abrirá en `http://localhost:5173`
+
+---
+
+## 📞 Credenciales por defecto
+
+| Campo | Valor |
+|-------|-------|
+| Usuario | `jaime` |
+| Contraseña | `PsicoJaime2025!` |
+
+**¡Cambia la contraseña antes de subir a GitHub!**
+
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+})
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f1f5f9; color: #1e293b; min-height: 100vh; }
+input, select, textarea, button { font-family: inherit; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.jsx'
+import './index.css'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+)
+
+function base(color1, color2, title, body) {
+  return `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>${title}</title>
+<style>
+  body{font-family:Georgia,serif;max-width:720px;margin:40px auto;padding:40px;color:#111;line-height:1.75;font-size:13px}
+  h1{font-size:19px;text-align:center;color:${color1};border-bottom:2px solid ${color1};padding-bottom:14px;margin-bottom:28px}
+  h2{font-size:12px;color:${color1};margin:22px 0 8px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+  .campo{background:${color2};border-left:3px solid ${color1};padding:8px 14px;margin:5px 0}
+  p,li{font-size:13px;margin:6px 0} ul{padding-left:22px}
+  .firma-bloque{display:flex;gap:80px;margin-top:70px}
+  .firma-linea{border-top:1px solid #333;width:200px;padding-top:6px;font-size:11px;color:#555;text-align:center;line-height:1.8}
+  .legal{font-size:10px;color:#aaa;margin-top:40px;border-top:1px solid #eee;padding-top:12px;text-align:center}
+  @media print{body{margin:0;padding:20px}}
+</style>
+</head>
+<body>
+${body}
+<script>window.onload=function(){window.print()}<\/script>
+</body></html>`
+}
+
+export function generarAutorizacion(p) {
+  const body = `
+  <h1>AUTORIZACIÓN PARA EL TRATAMIENTO DE DATOS PERSONALES</h1>
+  <h2>Datos del/la Paciente</h2>
+  <div class="campo"><strong>Nombre completo:</strong> ${p.nombre}</div>
+  <div class="campo"><strong>DNI / NIE:</strong> ${p.dni}</div>
+  <div class="campo"><strong>Fecha de nacimiento:</strong> ${p.fechaNacimiento}</div>
+  <div class="campo"><strong>Teléfono:</strong> ${p.telefono}</div>
+  <div class="campo"><strong>Email:</strong> ${p.email}</div>
+  <div class="campo"><strong>Dirección:</strong> ${p.direccion || '—'}</div>
+
+  <h2>Responsable del Tratamiento</h2>
+  <p><strong>Profesional:</strong> Jaime — PsicoJaime, Consulta de Psicología Online<br>
+  <strong>Número de colegiado:</strong> ______________________________<br>
+  <strong>Email profesional:</strong> ______________________________<br>
+  <strong>Teléfono profesional:</strong> ______________________________</p>
+
+  <h2>Finalidad del Tratamiento</h2>
+  <p>Los datos personales del/la paciente serán tratados exclusivamente para:</p>
+  <ul>
+    <li>Prestar servicios de atención psicológica individual online.</li>
+    <li>Elaborar y mantener la historia clínica según la Ley 41/2002.</li>
+    <li>Gestionar la relación terapéutica y el seguimiento clínico.</li>
+    <li>Gestionar la facturación y cobros de los servicios prestados.</li>
+    <li>Enviar recordatorios de citas y comunicaciones relativas a las sesiones.</li>
+  </ul>
+
+  <h2>Categoría de Datos</h2>
+  <p>Se tratarán datos de <strong>categoría especial</strong> (datos de salud) conforme al Art. 9.2.h del RGPD, bajo secreto profesional y las normas deontológicas del Consejo General de la Psicología de España.</p>
+
+  <h2>Base Jurídica</h2>
+  <p>Consentimiento explícito del/la paciente (Art. 6.1.a RGPD) y cumplimiento de obligaciones legales en el ámbito sanitario (Art. 9.2.h RGPD).</p>
+
+  <h2>Cesión de Datos</h2>
+  <p>Los datos <strong>no serán cedidos a terceros</strong> salvo obligación legal. Las plataformas de videollamada utilizadas para las sesiones online cumplen con el RGPD y disponen de los acuerdos de tratamiento correspondientes.</p>
+
+  <h2>Conservación de Datos</h2>
+  <p>Los datos se conservarán mientras dure la relación terapéutica y posteriormente el tiempo necesario para cumplir con las obligaciones legales aplicables en el ámbito sanitario.</p>
+
+  <h2>Derechos del/la Paciente</h2>
+  <p>En cualquier momento puede ejercer sus derechos de <strong>acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad</strong> dirigiéndose por escrito al responsable del tratamiento. También tiene derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (<em>aepd.es</em>).</p>
+
+  <h2>Declaración de Consentimiento</h2>
+  <p>Yo, <strong>${p.nombre}</strong>, con DNI/NIE <strong>${p.dni}</strong>, declaro haber sido informado/a de manera clara y comprensible sobre el tratamiento de mis datos personales, y <strong>AUTORIZO EXPRESAMENTE</strong> dicho tratamiento para las finalidades descritas en el presente documento.</p>
+
+  <div class="firma-bloque">
+    <div><div class="firma-linea">Firma del/la Paciente<br>${p.nombre}<br>Fecha: ___ / ___ / ______</div></div>
+    <div><div class="firma-linea">Firma del Psicólogo/a<br>Jaime<br>Fecha: ___ / ___ / ______</div></div>
+  </div>
+  <div class="legal">PsicoJaime · Conforme al Reglamento (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD)</div>`
+  return base('#1e3a6e', '#f0f4fb', `Autorización RGPD – ${p.nombre}`, body)
+}
+
+export function generarConsentimiento(p) {
+  const body = `
+  <h1>CONSENTIMIENTO INFORMADO PARA TRATAMIENTO PSICOLÓGICO</h1>
+  <h2>Datos del/la Paciente</h2>
+  <div class="campo"><strong>Nombre:</strong> ${p.nombre} &nbsp;|&nbsp; <strong>DNI/NIE:</strong> ${p.dni}</div>
+  <div class="campo"><strong>Fecha nacimiento:</strong> ${p.fechaNacimiento} &nbsp;|&nbsp; <strong>Teléfono:</strong> ${p.telefono}</div>
+  <div class="campo"><strong>Motivo de consulta:</strong> ${p.motivoConsulta || 'No especificado'}</div>
+  <div class="campo"><strong>Diagnóstico provisional:</strong> ${p.diagnosis || 'Pendiente de evaluación'}</div>
+
+  <h2>Datos del Profesional</h2>
+  <p><strong>Psicólogo/a:</strong> Jaime &nbsp;|&nbsp; <strong>Consulta:</strong> PsicoJaime – Psicología Online<br>
+  <strong>Número de colegiado:</strong> ______________________________<br>
+  <strong>Orientación terapéutica:</strong> ______________________________<br>
+  <strong>Modalidad:</strong> Sesiones individuales online (videollamada)</p>
+
+  <h2>Naturaleza del Tratamiento</h2>
+  <p>La psicoterapia es un proceso de tratamiento basado en la relación terapéutica. Implica trabajar de forma colaborativa para identificar y modificar patrones de pensamiento, emoción y comportamiento que generan malestar o limitan el funcionamiento del/la paciente.</p>
+
+  <h2>Procedimiento</h2>
+  <ul>
+    <li>Sesiones de aproximadamente <strong>50 minutos</strong> de duración.</li>
+    <li>Realizadas mediante <strong>videollamada</strong> en plataforma confidencial y segura.</li>
+    <li>Frecuencia habitual: <strong>semanal o quincenal</strong>, según acuerdo terapéutico.</li>
+    <li>El número de sesiones dependerá de la evolución y los objetivos acordados.</li>
+    <li>El/la terapeuta podrá proponer tareas entre sesiones para reforzar el trabajo.</li>
+  </ul>
+
+  <h2>Beneficios Esperados</h2>
+  <p>Reducción del malestar emocional, mejora de las relaciones interpersonales, mayor autoconocimiento, desarrollo de habilidades de afrontamiento y mejora general del bienestar psicológico.</p>
+
+  <h2>Riesgos y Limitaciones</h2>
+  <p>En ocasiones el proceso puede generar incomodidad temporal al abordar temas difíciles. La psicoterapia no garantiza resultado en todos los casos y puede no ser adecuada en determinadas situaciones clínicas. Estos aspectos serán abordados abiertamente en el proceso terapéutico.</p>
+
+  <h2>Confidencialidad y sus Límites</h2>
+  <p>Toda la información compartida en sesión es <strong>estrictamente confidencial</strong>. Solo podrá romperse en los siguientes casos previstos por la ley:</p>
+  <ul>
+    <li>Riesgo grave e inminente para la vida del/la paciente u otras personas.</li>
+    <li>Requerimiento judicial mediante resolución firme.</li>
+    <li>Obligación legal de comunicación a autoridades sanitarias o judiciales.</li>
+  </ul>
+
+  <h2>Honorarios y Cancelaciones</h2>
+  <p><strong>Precio por sesión:</strong> _______ € &nbsp;|&nbsp; <strong>Forma de pago:</strong> ______________________________<br>
+  Las cancelaciones deben realizarse con al menos <strong>24 horas de antelación</strong>. Las cancelaciones sin aviso previo podrán ser facturadas en su totalidad.</p>
+
+  <h2>Voluntariedad</h2>
+  <p>La participación es completamente <strong>voluntaria</strong>. El/la paciente puede interrumpir el tratamiento en cualquier momento, siendo recomendable comunicarlo al terapeuta para facilitar un cierre terapéutico adecuado.</p>
+
+  <h2>Declaración de Consentimiento</h2>
+  <p>Yo, <strong>${p.nombre}</strong>, con DNI/NIE <strong>${p.dni}</strong>, declaro:</p>
+  <ul>
+    <li>Haber leído y comprendido la información contenida en este documento.</li>
+    <li>Haber podido formular preguntas, que han sido resueltas satisfactoriamente.</li>
+    <li>Tomar la decisión de iniciar el tratamiento de forma <strong>libre y voluntaria</strong>.</li>
+  </ul>
+  <p>Y por ello <strong>CONSIENTO EXPRESAMENTE</strong> iniciar el proceso terapéutico con Jaime bajo las condiciones descritas.</p>
+
+  <div class="firma-bloque">
+    <div><div class="firma-linea">Firma del/la Paciente<br>${p.nombre}<br>Fecha: ___ / ___ / ______</div></div>
+    <div><div class="firma-linea">Firma del Psicólogo/a<br>Jaime<br>Fecha: ___ / ___ / ______</div></div>
+  </div>
+  <div class="legal">PsicoJaime · Ley 41/2002 de autonomía del paciente · Código Deontológico del Consejo General de la Psicología de España</div>`
+  return base('#1a5c3a', '#f0f7f3', `Consentimiento Informado – ${p.nombre}`, body)
+}
+
+export function descargarDocumento(htmlContent, nombreArchivo) {
+  const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = nombreArchivo
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+  URL.revokeObjectURL(url)
+}
+
+export function previsualizarDocumento(htmlContent) {
+  const w = window.open('', '_blank')
+  if (w) { w.document.write(htmlContent); w.document.close() }
+}
+
+import React from 'react'
+
+export function Btn({ children, variant = 'default', onClick, style = {}, disabled = false, size = 'md', type = 'button' }) {
+  const vs = {
+    default:  { background: '#fff',     border: '1px solid #d1d5db', color: '#374151' },
+    primary:  { background: '#1e3a6e',  border: '1px solid #1e3a6e', color: '#fff' },
+    success:  { background: '#dcfce7',  border: '1px solid #86efac', color: '#166534' },
+    danger:   { background: '#fee2e2',  border: '1px solid #fca5a5', color: '#991b1b' },
+    warning:  { background: '#fef9c3',  border: '1px solid #fde047', color: '#854d0e' },
+    info:     { background: '#dbeafe',  border: '1px solid #93c5fd', color: '#1e40af' },
+    ghost:    { background: 'transparent', border: '1px solid #e5e7eb', color: '#6b7280' },
+  }
+  const sz = { sm: '5px 11px', md: '8px 16px', lg: '11px 22px' }
+  return (
+    <button type={type} onClick={onClick} disabled={disabled} style={{
+      ...vs[variant], padding: sz[size], borderRadius: 8,
+      cursor: disabled ? 'not-allowed' : 'pointer',
+      fontSize: size === 'sm' ? 11 : 13, fontWeight: 500,
+      display: 'inline-flex', alignItems: 'center', gap: 6,
+      fontFamily: 'inherit', opacity: disabled ? 0.55 : 1,
+      transition: 'opacity .15s, box-shadow .15s', ...style,
+    }}>
+      {children}
+    </button>
+  )
+}
+
+export function Badge({ children, variant = 'default', style = {} }) {
+  const vs = {
+    default: { background: '#f3f4f6', color: '#374151' },
+    success: { background: '#dcfce7', color: '#166534' },
+    danger:  { background: '#fee2e2', color: '#991b1b' },
+    warning: { background: '#fef9c3', color: '#854d0e' },
+    info:    { background: '#dbeafe', color: '#1e40af' },
+    purple:  { background: '#ede9fe', color: '#6b21a8' },
+  }
+  return <span style={{ ...vs[variant], padding: '2px 9px', borderRadius: 20, fontSize: 11, fontWeight: 500, display: 'inline-block', ...style }}>{children}</span>
+}
+
+export function Card({ children, style = {}, noPad = false }) {
+  return <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 12, padding: noPad ? 0 : 20, ...style }}>{children}</div>
+}
+
+export function Field({ label, children }) {
+  return (
+    <div style={{ marginBottom: 14 }}>
+      {label && <label style={{ display: 'block', fontSize: 11, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600, marginBottom: 5 }}>{label}</label>}
+      {children}
+    </div>
+  )
+}
+
+const inputStyle = { width: '100%', padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: 8, fontSize: 13, color: '#111827', background: '#fff', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' }
+
+export function Input({ label, ...props }) {
+  return <Field label={label}><input {...props} style={{ ...inputStyle, ...props.style }} /></Field>
+}
+
+export function Select({ label, children, ...props }) {
+  return <Field label={label}><select {...props} style={{ ...inputStyle, ...props.style }}>{children}</select></Field>
+}
+
+export function Textarea({ label, ...props }) {
+  return <Field label={label}><textarea {...props} style={{ ...inputStyle, resize: 'vertical', minHeight: 80, ...props.style }} /></Field>
+}
+
+export function Modal({ title, onClose, children, footer, maxWidth = 600 }) {
+  return (
+    <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.45)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: 20 }}
+      onClick={e => e.target === e.currentTarget && onClose()}>
+      <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 14, width: '100%', maxWidth, maxHeight: '90vh', overflowY: 'auto', boxShadow: '0 20px 60px rgba(0,0,0,.18)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '18px 22px', borderBottom: '1px solid #f3f4f6', position: 'sticky', top: 0, background: '#fff', zIndex: 1 }}>
+          <span style={{ fontSize: 16, fontWeight: 600, color: '#111827' }}>{title}</span>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#9ca3af', lineHeight: 1 }}>×</button>
+        </div>
+        <div style={{ padding: 22 }}>{children}</div>
+        {footer && <div style={{ padding: '14px 22px', borderTop: '1px solid #f3f4f6', display: 'flex', justifyContent: 'flex-end', gap: 10, position: 'sticky', bottom: 0, background: '#fff' }}>{footer}</div>}
+      </div>
+    </div>
+  )
+}
+
+export function SectionTitle({ children, style = {} }) {
+  return <div style={{ fontSize: 11, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.07em', fontWeight: 600, borderBottom: '1px solid #f3f4f6', paddingBottom: 7, marginBottom: 14, marginTop: 20, ...style }}>{children}</div>
+}
+
+export function Avatar({ name = '?', size = 38 }) {
+  const palette = [
+    ['#dbeafe','#1e40af'], ['#dcfce7','#166534'], ['#ede9fe','#6b21a8'],
+    ['#fef9c3','#854d0e'], ['#fee2e2','#991b1b'], ['#f0fdf4','#14532d'],
+    ['#fff7ed','#9a3412'], ['#fdf2f8','#86198f'],
+  ]
+  const [bg, fg] = palette[(name.charCodeAt(0) || 0) % palette.length]
+  return <div style={{ width: size, height: size, borderRadius: '50%', background: bg, color: fg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: size * 0.38, fontWeight: 700, flexShrink: 0 }}>{name[0]?.toUpperCase()}</div>
+}
+
+export function PageHeader({ title, sub, action }) {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 24 }}>
+      <div>
+        <h2 style={{ fontSize: 22, fontWeight: 700, color: '#111827', marginBottom: 3 }}>{title}</h2>
+        {sub && <p style={{ fontSize: 13, color: '#6b7280' }}>{sub}</p>}
+      </div>
+      {action}
+    </div>
+  )
+}
+
+export function MetricCard({ label, value, sub, color = '#1e3a6e' }) {
+  return (
+    <Card style={{ padding: '18px 20px' }}>
+      <div style={{ fontSize: 11, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600, marginBottom: 8 }}>{label}</div>
+      <div style={{ fontSize: 26, fontWeight: 700, color, marginBottom: 3 }}>{value}</div>
+      {sub && <div style={{ fontSize: 12, color: '#9ca3af' }}>{sub}</div>}
+    </Card>
+  )
+}
+
+import React from 'react'
+import { Card, MetricCard, Badge, Avatar } from '../utils/ui.jsx'
+
+function fmtDate(d) {
+  return new Date(d + 'T00:00:00').toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' })
+}
+
+export default function Dashboard({ patients, invoices, appointments, onNav }) {
+  const today = new Date().toISOString().split('T')[0]
+  const thisMonth = new Date().toISOString().slice(0, 7)
+  const mInv = invoices.filter(i => i.date.startsWith(thisMonth))
+  const mRev = mInv.filter(i => i.status === 'pagada').reduce((s, i) => s + i.amount, 0)
+  const pendTotal = invoices.filter(i => i.status === 'pendiente').reduce((s, i) => s + i.amount, 0)
+  const todayApts = appointments.filter(a => a.date === today)
+  const nextApts = appointments.filter(a => a.date >= today).sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time)).slice(0, 6)
+
+  const sinDocs = patients.filter(p => !p.autorizacion || !p.consentimiento)
+
+  // 6-month bar chart
+  const now = new Date()
+  const MONTHS = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']
+  const bars = Array.from({ length: 6 }, (_, i) => {
+    const d = new Date(now.getFullYear(), now.getMonth() - 5 + i, 1)
+    const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`
+    const val = invoices.filter(x => x.date.startsWith(key) && x.status === 'pagada').reduce((s,x)=>s+x.amount,0)
+    return { label: MONTHS[d.getMonth()], val, isCurrentMonth: i === 5 }
+  })
+  const maxBar = Math.max(...bars.map(b => b.val), 1)
+
+  return (
+    <div>
+      <div style={{ marginBottom: 28 }}>
+        <h2 style={{ fontSize: 24, fontWeight: 700, color: '#111827', marginBottom: 4 }}>
+          Buenos días, Jaime 👋
+        </h2>
+        <p style={{ fontSize: 13, color: '#6b7280' }}>
+          {new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+        </p>
+      </div>
+
+      {/* Alerta documentación */}
+      {sinDocs.length > 0 && (
+        <div style={{ background: '#fef9c3', border: '1px solid #fde047', borderRadius: 10, padding: '12px 18px', marginBottom: 22, display: 'flex', alignItems: 'center', gap: 12 }}>
+          <span style={{ fontSize: 18 }}>⚠️</span>
+          <div style={{ flex: 1, fontSize: 13, color: '#854d0e' }}>
+            <strong>{sinDocs.length} paciente{sinDocs.length > 1 ? 's' : ''} sin documentación completa:</strong>{' '}
+            {sinDocs.map(p => p.nombre.split(' ')[0]).join(', ')}
+          </div>
+          <button onClick={() => onNav('pacientes')} style={{ fontSize: 12, color: '#854d0e', background: 'none', border: '1px solid #fde047', borderRadius: 6, padding: '5px 12px', cursor: 'pointer', fontWeight: 500, fontFamily: 'inherit' }}>
+            Ver pacientes →
+          </button>
+        </div>
+      )}
+
+      {/* Metrics */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginBottom: 24 }}>
+        <MetricCard label="Ingresos del mes" value={`${mRev}€`} sub={`${mInv.length} sesiones`} color="#1e3a6e" />
+        <MetricCard label="Cobros pendientes" value={`${pendTotal}€`} sub={`${invoices.filter(i=>i.status==='pendiente').length} facturas`} color="#b45309" />
+        <MetricCard label="Pacientes activos" value={patients.filter(p=>p.status==='activo').length} sub={`${patients.length} registrados`} color="#166534" />
+        <MetricCard label="Citas hoy" value={todayApts.length} sub={todayApts[0] ? `Primera: ${todayApts[0].time}h` : 'Sin citas'} color="#7c3aed" />
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18 }}>
+        {/* Bar chart */}
+        <Card>
+          <div style={{ fontWeight: 600, fontSize: 14, color: '#111827', marginBottom: 20 }}>Ingresos últimos 6 meses</div>
+          <div style={{ display: 'flex', alignItems: 'flex-end', gap: 10, height: 110 }}>
+            {bars.map((b, i) => (
+              <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 5 }}>
+                {b.val > 0 && <div style={{ fontSize: 10, color: '#9ca3af' }}>{b.val}€</div>}
+                <div style={{ width: '100%', height: `${Math.max(Math.round((b.val/maxBar)*90),b.val?4:0)}px`, background: b.isCurrentMonth ? '#1e3a6e' : '#dbeafe', borderRadius: '4px 4px 0 0', transition: 'height .4s ease' }} />
+                <div style={{ fontSize: 11, color: '#9ca3af' }}>{b.label}</div>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        {/* Próximas citas */}
+        <Card>
+          <div style={{ fontWeight: 600, fontSize: 14, color: '#111827', marginBottom: 16 }}>Próximas citas</div>
+          {nextApts.length ? nextApts.map((a, i) => (
+            <div key={a.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '9px 0', borderBottom: i < nextApts.length-1 ? '1px solid #f3f4f6' : 'none' }}>
+              <Avatar name={a.patient} size={32} />
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: 500 }}>{a.patient}</div>
+                <div style={{ fontSize: 11, color: '#9ca3af' }}>{fmtDate(a.date)} · {a.time}h</div>
+              </div>
+              <Badge variant="info">{a.duration}min</Badge>
+            </div>
+          )) : <p style={{ fontSize: 13, color: '#9ca3af' }}>Sin citas próximas programadas</p>}
+        </Card>
+      </div>
+    </div>
+  )
+}
+
+import React, { useState } from 'react'
+import { Btn, Badge, Card, Input, Select, Textarea, Modal, SectionTitle, Avatar, PageHeader } from '../utils/ui.jsx'
+import { DSM5 } from '../data/dsm5.js'
+import { generarAutorizacion, generarConsentimiento, descargarDocumento, previsualizarDocumento } from '../utils/documents.js'
+
+const BLANK = {
+  nombre:'', dni:'', fechaNacimiento:'', sexo:'Mujer', telefono:'', email:'',
+  direccion:'', ocupacion:'', estadoCivil:'Soltero/a', contactoEmergencia:'',
+  motivoConsulta:'', antecedentesFamiliares:'', antecedentesPersonales:'',
+  medicacion:'Ninguna', modalidad:'Online', idiomasSesion:'Español',
+  objetivosTerapeuticos:'', diagnosis:'',
+  since: new Date().toISOString().split('T')[0], status:'activo',
+}
+
+function InfoCell({ label, value, full }) {
+  return (
+    <div style={{ background: '#f9fafb', borderRadius: 8, padding: '10px 14px', gridColumn: full ? '1/-1' : 'auto' }}>
+      <div style={{ fontSize: 10, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 3 }}>{label}</div>
+      <div style={{ fontSize: 13, color: '#111827' }}>{value || <em style={{ color: '#d1d5db' }}>—</em>}</div>
+    </div>
+  )
+}
+
+function PatientForm({ initial, patients, onSave, onClose, title }) {
+  const [f, setF] = useState(initial)
+  const u = k => e => setF({ ...f, [k]: e.target.value })
+  return (
+    <Modal title={title} onClose={onClose} maxWidth={680}
+      footer={<><Btn variant="ghost" onClick={onClose}>Cancelar</Btn><Btn variant="primary" onClick={() => onSave(f)}>Guardar</Btn></>}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <Input label="Nombre completo *" value={f.nombre} onChange={u('nombre')} placeholder="Nombre y apellidos" />
+        <Input label="DNI / NIE *" value={f.dni} onChange={u('dni')} placeholder="12345678A" />
+        <Input label="Fecha de nacimiento" type="date" value={f.fechaNacimiento} onChange={u('fechaNacimiento')} />
+        <Select label="Sexo" value={f.sexo} onChange={u('sexo')}>
+          {['Mujer','Hombre','No binario','Prefiero no indicarlo'].map(o=><option key={o}>{o}</option>)}
+        </Select>
+        <Input label="Teléfono" value={f.telefono} onChange={u('telefono')} placeholder="6XX XXX XXX" />
+        <Input label="Email" type="email" value={f.email} onChange={u('email')} />
+      </div>
+      <Input label="Dirección" value={f.direccion} onChange={u('direccion')} placeholder="Calle, número, ciudad" />
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <Input label="Ocupación" value={f.ocupacion} onChange={u('ocupacion')} />
+        <Select label="Estado civil" value={f.estadoCivil} onChange={u('estadoCivil')}>
+          {['Soltero/a','Casado/a','Pareja de hecho','Separado/a','Divorciado/a','Viudo/a'].map(o=><option key={o}>{o}</option>)}
+        </Select>
+        <Input label="Contacto de emergencia" value={f.contactoEmergencia} onChange={u('contactoEmergencia')} placeholder="Nombre – teléfono" />
+        <Input label="En consulta desde" type="date" value={f.since} onChange={u('since')} />
+        <Select label="Modalidad" value={f.modalidad} onChange={u('modalidad')}>
+          {['Online','Presencial','Mixta'].map(o=><option key={o}>{o}</option>)}
+        </Select>
+        <Select label="Estado" value={f.status} onChange={u('status')}>
+          {['activo','alta','en pausa','lista de espera'].map(o=><option key={o}>{o}</option>)}
+        </Select>
+      </div>
+      <Textarea label="Motivo de consulta" value={f.motivoConsulta} onChange={u('motivoConsulta')} style={{ minHeight: 70 }} />
+      <Select label="Diagnóstico DSM-5 / CIE-11" value={f.diagnosis} onChange={u('diagnosis')}>
+        <option value="">Sin diagnóstico / En evaluación</option>
+        {DSM5.map(d => <option key={d} value={d}>{d}</option>)}
+      </Select>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <Textarea label="Antecedentes familiares" value={f.antecedentesFamiliares} onChange={u('antecedentesFamiliares')} style={{ minHeight: 60 }} />
+        <Textarea label="Antecedentes personales" value={f.antecedentesPersonales} onChange={u('antecedentesPersonales')} style={{ minHeight: 60 }} />
+      </div>
+      <Input label="Medicación actual" value={f.medicacion} onChange={u('medicacion')} placeholder="Ninguna / especificar fármaco y dosis" />
+      <Textarea label="Objetivos terapéuticos" value={f.objetivosTerapeuticos} onChange={u('objetivosTerapeuticos')} style={{ minHeight: 60 }} />
+    </Modal>
+  )
+}
+
+export default function Pacientes({ patients, setPatients, onToast }) {
+  const [selected, setSelected] = useState(null)
+  const [tab, setTab] = useState('info')
+  const [showForm, setShowForm] = useState(false)
+  const [editMode, setEditMode] = useState(false)
+  const [noteForm, setNoteForm] = useState({ fecha: new Date().toISOString().split('T')[0], evolucion: 'estable', objetivos: '', contenido: '', tareas: '' })
+  const [search, setSearch] = useState('')
+
+  const filtered = patients.filter(p =>
+    p.nombre.toLowerCase().includes(search.toLowerCase()) || p.dni.includes(search)
+  )
+
+  function saveNew(f) {
+    const p = { ...f, id: Date.now(), sessions: 0, balance: 0, notes: [], autorizacion: false, consentimiento: false }
+    setPatients([...patients, p])
+    setShowForm(false)
+    onToast('✓ Paciente registrado')
+  }
+
+  function saveEdit(f) {
+    const updated = patients.map(p => p.id === selected.id ? { ...p, ...f } : p)
+    setPatients(updated)
+    setSelected({ ...selected, ...f })
+    setEditMode(false)
+    onToast('✓ Datos actualizados')
+  }
+
+  function addNote() {
+    const note = { ...noteForm, id: Date.now() }
+    const updated = patients.map(p => p.id === selected.id ? { ...p, notes: [...(p.notes||[]), note], sessions: p.sessions + 1 } : p)
+    setPatients(updated)
+    setSelected(prev => ({ ...prev, notes: [...(prev.notes||[]), note], sessions: prev.sessions + 1 }))
+    setNoteForm({ fecha: new Date().toISOString().split('T')[0], evolucion: 'estable', objetivos: '', contenido: '', tareas: '' })
+    onToast('✓ Nota de sesión guardada')
+  }
+
+  function toggleDoc(tipo, val) {
+    const updated = patients.map(p => p.id === selected.id ? { ...p, [tipo]: val } : p)
+    setPatients(updated)
+    setSelected(prev => ({ ...prev, [tipo]: val }))
+    onToast(val ? `✓ ${tipo === 'autorizacion' ? 'RGPD' : 'Consentimiento'} marcado como firmado` : '↩ Desmarcado')
+  }
+
+  const evColor = { mejora: '#166534', estable: '#1e40af', empeora: '#991b1b' }
+  const evBg    = { mejora: '#dcfce7', estable: '#dbeafe', empeora: '#fee2e2' }
+
+  if (selected) {
+    const p = selected
+    const tabs = [
+      { id: 'info',       label: '👤 Datos' },
+      { id: 'historia',   label: '📋 Historia' },
+      { id: 'notas',      label: `📝 Notas (${(p.notes||[]).length})` },
+      { id: 'evolucion',  label: '📈 Evolución' },
+      { id: 'documentos', label: '📄 Documentos' },
+    ]
+    return (
+      <div>
+        <button onClick={() => { setSelected(null); setTab('info') }} style={{ background: 'none', border: 'none', color: '#6b7280', cursor: 'pointer', fontSize: 13, marginBottom: 18, display: 'flex', alignItems: 'center', gap: 5 }}>
+          ← Volver a pacientes
+        </button>
+
+        {/* Header */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 24 }}>
+          <Avatar name={p.nombre} size={52} />
+          <div style={{ flex: 1 }}>
+            <h2 style={{ fontSize: 21, fontWeight: 700, color: '#111827', marginBottom: 5 }}>{p.nombre}</h2>
+            <div style={{ display: 'flex', gap: 7, flexWrap: 'wrap' }}>
+              <Badge variant={p.status === 'activo' ? 'success' : 'warning'}>{p.status}</Badge>
+              <Badge variant={p.autorizacion ? 'success' : 'danger'}>{p.autorizacion ? '✓ RGPD' : '✗ RGPD pendiente'}</Badge>
+              <Badge variant={p.consentimiento ? 'success' : 'danger'}>{p.consentimiento ? '✓ CI firmado' : '✗ CI pendiente'}</Badge>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 20, textAlign: 'center' }}>
+            <div><div style={{ fontSize: 22, fontWeight: 700, color: '#1e3a6e' }}>{p.sessions}</div><div style={{ fontSize: 11, color: '#9ca3af' }}>sesiones</div></div>
+            <div><div style={{ fontSize: 22, fontWeight: 700, color: p.balance < 0 ? '#dc2626' : '#16a34a' }}>{p.balance}€</div><div style={{ fontSize: 11, color: '#9ca3af' }}>saldo</div></div>
+          </div>
+        </div>
+
+        {/* Tab bar */}
+        <div style={{ display: 'flex', gap: 2, background: '#f3f4f6', padding: 3, borderRadius: 10, marginBottom: 22, width: 'fit-content', flexWrap: 'wrap' }}>
+          {tabs.map(t => (
+            <button key={t.id} onClick={() => setTab(t.id)} style={{ padding: '7px 14px', borderRadius: 8, border: 'none', background: tab === t.id ? '#fff' : 'transparent', color: tab === t.id ? '#111827' : '#6b7280', fontWeight: tab === t.id ? 600 : 400, cursor: 'pointer', fontSize: 12, fontFamily: 'inherit', boxShadow: tab === t.id ? '0 1px 3px rgba(0,0,0,0.1)' : 'none' }}>
+              {t.label}
+            </button>
+          ))}
+        </div>
+
+        {/* TAB: INFO */}
+        {tab === 'info' && (
+          <Card>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 12 }}>
+              <Btn onClick={() => setEditMode(true)}>✏️ Editar datos</Btn>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+              <InfoCell label="Nombre completo" value={p.nombre} />
+              <InfoCell label="DNI / NIE" value={p.dni} />
+              <InfoCell label="Fecha de nacimiento" value={p.fechaNacimiento} />
+              <InfoCell label="Sexo" value={p.sexo} />
+              <InfoCell label="Teléfono" value={p.telefono} />
+              <InfoCell label="Email" value={p.email} />
+              <InfoCell label="Estado civil" value={p.estadoCivil} />
+              <InfoCell label="Ocupación" value={p.ocupacion} />
+              <InfoCell label="Dirección" value={p.direccion} full />
+              <InfoCell label="Contacto de emergencia" value={p.contactoEmergencia} full />
+              <InfoCell label="Modalidad" value={p.modalidad} />
+              <InfoCell label="En consulta desde" value={p.since} />
+              <InfoCell label="Diagnóstico DSM-5/CIE-11" value={p.diagnosis} full />
+            </div>
+          </Card>
+        )}
+
+        {/* TAB: HISTORIA */}
+        {tab === 'historia' && (
+          <Card>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 12 }}>
+              <Btn onClick={() => setEditMode(true)}>✏️ Editar historia</Btn>
+            </div>
+            {[
+              ['Motivo de consulta', p.motivoConsulta],
+              ['Objetivos terapéuticos', p.objetivosTerapeuticos],
+              ['Antecedentes familiares', p.antecedentesFamiliares],
+              ['Antecedentes personales', p.antecedentesPersonales],
+              ['Medicación actual', p.medicacion],
+              ['Diagnóstico DSM-5/CIE-11', p.diagnosis],
+            ].map(([label, val]) => (
+              <div key={label} style={{ marginBottom: 18 }}>
+                <div style={{ fontSize: 11, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600, borderBottom: '1px solid #f3f4f6', paddingBottom: 6, marginBottom: 10 }}>{label}</div>
+                <p style={{ fontSize: 13, color: '#374151', lineHeight: 1.7 }}>{val || <em style={{ color: '#d1d5db' }}>No registrado</em>}</p>
+              </div>
+            ))}
+          </Card>
+        )}
+
+        {/* TAB: NOTAS */}
+        {tab === 'notas' && (
+          <div>
+            <Card style={{ marginBottom: 14 }}>
+              <div style={{ fontWeight: 600, fontSize: 14, marginBottom: 14 }}>Nueva nota de sesión</div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                <Input label="Fecha" type="date" value={noteForm.fecha} onChange={e => setNoteForm({...noteForm, fecha: e.target.value})} />
+                <Select label="Evolución" value={noteForm.evolucion} onChange={e => setNoteForm({...noteForm, evolucion: e.target.value})}>
+                  <option value="mejora">↑ Mejora</option>
+                  <option value="estable">→ Estable</option>
+                  <option value="empeora">↓ Empeora</option>
+                </Select>
+              </div>
+              <Input label="Objetivos / temas trabajados en sesión" value={noteForm.objetivos} onChange={e => setNoteForm({...noteForm, objetivos: e.target.value})} placeholder="Reestructuración cognitiva, regulación emocional, exposición…" />
+              <Textarea label="Contenido de la sesión" value={noteForm.contenido} onChange={e => setNoteForm({...noteForm, contenido: e.target.value})} placeholder="Observaciones, intervenciones, aspectos relevantes…" style={{ minHeight: 100 }} />
+              <Input label="Tareas para casa" value={noteForm.tareas} onChange={e => setNoteForm({...noteForm, tareas: e.target.value})} placeholder="Registro de pensamientos, ejercicios de respiración…" />
+              <Btn variant="primary" onClick={addNote}>+ Guardar nota</Btn>
+            </Card>
+            {!(p.notes||[]).length && <p style={{ textAlign: 'center', color: '#9ca3af', padding: 30, fontSize: 13 }}>Sin notas de sesión todavía</p>}
+            {(p.notes||[]).slice().reverse().map((n, i) => (
+              <Card key={i} style={{ marginBottom: 10 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                  <span style={{ fontSize: 12, color: '#6b7280', fontWeight: 500 }}>Sesión del {n.fecha}</span>
+                  <span style={{ fontSize: 11, fontWeight: 600, padding: '2px 9px', borderRadius: 20, background: evBg[n.evolucion], color: evColor[n.evolucion] }}>
+                    {n.evolucion === 'mejora' ? '↑ Mejora' : n.evolucion === 'empeora' ? '↓ Empeora' : '→ Estable'}
+                  </span>
+                </div>
+                {n.objetivos && <div style={{ fontSize: 11, color: '#9ca3af', marginBottom: 6 }}>🎯 {n.objetivos}</div>}
+                <p style={{ fontSize: 13, color: '#374151', lineHeight: 1.65, marginBottom: 8 }}>{n.contenido || '—'}</p>
+                {n.tareas && <div style={{ fontSize: 12, color: '#374151', background: '#f0fdf4', padding: '7px 12px', borderRadius: 7, border: '1px solid #bbf7d0' }}>📋 Tarea: {n.tareas}</div>}
+              </Card>
+            ))}
+          </div>
+        )}
+
+        {/* TAB: EVOLUCIÓN */}
+        {tab === 'evolucion' && (
+          <div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14, marginBottom: 18 }}>
+              {[
+                { label: 'Sesiones con mejora',  val: (p.notes||[]).filter(n=>n.evolucion==='mejora').length,  color: '#166534', bg: '#dcfce7' },
+                { label: 'Sesiones estables',     val: (p.notes||[]).filter(n=>n.evolucion==='estable').length, color: '#1e40af', bg: '#dbeafe' },
+                { label: 'Sesiones con empeora',  val: (p.notes||[]).filter(n=>n.evolucion==='empeora').length, color: '#991b1b', bg: '#fee2e2' },
+              ].map(m => (
+                <div key={m.label} style={{ background: m.bg, border: `1px solid transparent`, borderRadius: 10, padding: '16px 18px', textAlign: 'center' }}>
+                  <div style={{ fontSize: 28, fontWeight: 700, color: m.color }}>{m.val}</div>
+                  <div style={{ fontSize: 12, color: m.color, marginTop: 3 }}>{m.label}</div>
+                </div>
+              ))}
+            </div>
+            <Card>
+              <div style={{ fontWeight: 600, fontSize: 14, marginBottom: 16 }}>Línea de evolución</div>
+              {!(p.notes||[]).length
+                ? <p style={{ color: '#9ca3af', fontSize: 13, textAlign: 'center', padding: 20 }}>Sin datos de evolución</p>
+                : (p.notes||[]).map((n, i) => (
+                  <div key={i} style={{ display: 'flex', gap: 14, marginBottom: 14 }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+                      <div style={{ width: 10, height: 10, borderRadius: '50%', background: evColor[n.evolucion], flexShrink: 0 }} />
+                      {i < (p.notes||[]).length - 1 && <div style={{ width: 2, flex: 1, background: '#f3f4f6', minHeight: 20 }} />}
+                    </div>
+                    <div style={{ paddingBottom: 8 }}>
+                      <div style={{ fontSize: 11, color: '#9ca3af', marginBottom: 2 }}>
+                        {n.fecha} · <span style={{ color: evColor[n.evolucion], fontWeight: 600 }}>{n.evolucion}</span>
+                      </div>
+                      <div style={{ fontSize: 13, color: '#374151' }}>{n.contenido?.slice(0, 100)}{n.contenido?.length > 100 ? '…' : ''}</div>
+                    </div>
+                  </div>
+                ))}
+            </Card>
+          </div>
+        )}
+
+        {/* TAB: DOCUMENTOS */}
+        {tab === 'documentos' && (
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            {[
+              {
+                tipo: 'autorizacion', titulo: 'Autorización de datos (RGPD)',
+                desc: 'Documento de autorización para el tratamiento de datos personales de salud. Conforme al RGPD (UE) 2016/679 y la LOPDGDD 3/2018.',
+                color: '#1e3a6e', field: 'autorizacion',
+              },
+              {
+                tipo: 'consentimiento', titulo: 'Consentimiento Informado',
+                desc: 'Documento de consentimiento para el inicio del tratamiento psicológico. Incluye información sobre el proceso, confidencialidad, honorarios y derechos.',
+                color: '#1a5c3a', field: 'consentimiento',
+              },
+            ].map(doc => (
+              <Card key={doc.tipo}>
+                <div style={{ fontSize: 15, fontWeight: 600, color: doc.color, marginBottom: 8 }}>{doc.titulo}</div>
+                <p style={{ fontSize: 12, color: '#6b7280', marginBottom: 16, lineHeight: 1.6 }}>{doc.desc}</p>
+                <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
+                  <Btn variant="info" onClick={() => { descargarDocumento(doc.tipo === 'autorizacion' ? generarAutorizacion(p) : generarConsentimiento(p), `${doc.tipo}_${p.nombre.replace(/\s+/g,'_')}.html`); onToast('✓ Descargado — abre el archivo e imprime con Ctrl+P') }}>
+                    ⬇ Descargar
+                  </Btn>
+                  <Btn onClick={() => previsualizarDocumento(doc.tipo === 'autorizacion' ? generarAutorizacion(p) : generarConsentimiento(p))}>
+                    👁 Vista previa
+                  </Btn>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', background: '#f9fafb', borderRadius: 8 }}>
+                  <input type="checkbox" id={`${doc.tipo}-${p.id}`} checked={p[doc.field]} onChange={e => toggleDoc(doc.field, e.target.checked)} style={{ width: 16, height: 16, cursor: 'pointer' }} />
+                  <label htmlFor={`${doc.tipo}-${p.id}`} style={{ fontSize: 12, color: '#374151', cursor: 'pointer' }}>
+                    Marcar como firmado por el/la paciente
+                  </label>
+                </div>
+                <div style={{ marginTop: 10 }}>
+                  <Badge variant={p[doc.field] ? 'success' : 'warning'}>{p[doc.field] ? '✓ Firmado' : 'Pendiente de firma'}</Badge>
+                </div>
+              </Card>
+            ))}
+          </div>
+        )}
+
+        {editMode && (
+          <PatientForm initial={selected} patients={patients} title="Editar paciente"
+            onSave={saveEdit} onClose={() => setEditMode(false)} />
+        )}
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      <PageHeader title="Pacientes" sub={`${patients.length} registrados`} action={<Btn variant="primary" onClick={() => setShowForm(true)}>+ Nuevo paciente</Btn>} />
+      <input
+        placeholder="🔍 Buscar por nombre o DNI…"
+        value={search} onChange={e => setSearch(e.target.value)}
+        style={{ width: '100%', padding: '10px 14px', border: '1px solid #d1d5db', borderRadius: 9, fontSize: 13, marginBottom: 16, boxSizing: 'border-box', fontFamily: 'inherit', outline: 'none' }}
+      />
+      <Card noPad>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+          <thead>
+            <tr style={{ borderBottom: '1px solid #f3f4f6' }}>
+              {['Paciente','DNI','Diagnóstico','Sesiones','Saldo','Estado','Docs'].map(h => (
+                <th key={h} style={{ padding: '11px 16px', textAlign: 'left', fontSize: 11, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 500 }}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.map(p => (
+              <tr key={p.id} onClick={() => { setSelected(p); setTab('info') }} style={{ cursor: 'pointer', borderBottom: '1px solid #f9fafb' }}
+                onMouseEnter={e => e.currentTarget.style.background = '#f9fafb'}
+                onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
+                <td style={{ padding: '13px 16px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <Avatar name={p.nombre} size={34} />
+                    <div>
+                      <div style={{ fontWeight: 500, color: '#111827' }}>{p.nombre}</div>
+                      <div style={{ fontSize: 11, color: '#9ca3af' }}>{p.email}</div>
+                    </div>
+                  </div>
+                </td>
+                <td style={{ padding: '13px 16px', color: '#6b7280' }}>{p.dni}</td>
+                <td style={{ padding: '13px 16px', color: '#6b7280', maxWidth: 180, fontSize: 12 }}>{p.diagnosis?.split(' - ')[0] || '—'}</td>
+                <td style={{ padding: '13px 16px', fontWeight: 500 }}>{p.sessions}</td>
+                <td style={{ padding: '13px 16px', fontWeight: 600, color: p.balance < 0 ? '#dc2626' : '#16a34a' }}>{p.balance}€</td>
+                <td style={{ padding: '13px 16px' }}><Badge variant={p.status === 'activo' ? 'success' : 'warning'}>{p.status}</Badge></td>
+                <td style={{ padding: '13px 16px' }}>
+                  <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+                    <Badge variant={p.autorizacion ? 'success' : 'danger'}>{p.autorizacion ? '✓ RGPD' : '✗ RGPD'}</Badge>
+                    <Badge variant={p.consentimiento ? 'success' : 'danger'}>{p.consentimiento ? '✓ CI' : '✗ CI'}</Badge>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {!filtered.length && <p style={{ textAlign: 'center', color: '#9ca3af', padding: 40, fontSize: 13 }}>Sin resultados</p>}
+      </Card>
+
+      {showForm && <PatientForm initial={BLANK} patients={patients} title="Nuevo paciente" onSave={saveNew} onClose={() => setShowForm(false)} />}
+    </div>
+  )
+}
+
+import React, { useState } from 'react'
+import { Btn, Badge, Card, Input, Select, Textarea, Modal, Avatar, PageHeader } from '../utils/ui.jsx'
+
+const HOURS = ['08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00']
+const BLANK = { patientId: '', date: new Date().toISOString().split('T')[0], time: '10:00', duration: '50', type: 'individual', notes: '' }
+
+function fmtDateLong(d) {
+  return new Date(d + 'T00:00:00').toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
+}
+function isToday(d) { return d === new Date().toISOString().split('T')[0] }
+function isTomorrow(d) { const t = new Date(); t.setDate(t.getDate()+1); return d === t.toISOString().split('T')[0] }
+
+export default function Agenda({ patients, appointments, setAppointments, onToast }) {
+  const [showForm, setShowForm] = useState(false)
+  const [f, setF] = useState(BLANK)
+  const u = k => e => setF({ ...f, [k]: e.target.value })
+
+  function addAppt() {
+    const p = patients.find(p => p.id === Number(f.patientId))
+    if (!p) return
+    setAppointments([...appointments, { ...f, id: Date.now(), patient: p.nombre, patientId: Number(f.patientId), duration: Number(f.duration) }])
+    setShowForm(false)
+    setF(BLANK)
+    onToast('✓ Cita añadida')
+  }
+
+  function deleteAppt(id) {
+    if (window.confirm('¿Eliminar esta cita?')) {
+      setAppointments(appointments.filter(a => a.id !== id))
+      onToast('✓ Cita eliminada')
+    }
+  }
+
+  const sorted = appointments.slice().sort((a,b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time))
+  const grouped = sorted.reduce((acc, a) => { (acc[a.date] = acc[a.date] || []).push(a); return acc }, {})
+  const upcoming = Object.keys(grouped).filter(d => d >= new Date().toISOString().split('T')[0]).sort()
+  const past = Object.keys(grouped).filter(d => d < new Date().toISOString().split('T')[0]).sort().reverse()
+
+  function DateGroup({ date, apts }) {
+    const label = isToday(date) ? '🟢 Hoy' : isTomorrow(date) ? '🔵 Mañana' : fmtDateLong(date)
+    return (
+      <div style={{ marginBottom: 20 }}>
+        <div style={{ fontSize: 12, fontWeight: 600, color: isToday(date) ? '#166534' : isTomorrow(date) ? '#1e40af' : '#6b7280', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+          {label}
+        </div>
+        <Card noPad>
+          {apts.map((a, i) => (
+            <div key={a.id} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 18px', borderBottom: i < apts.length-1 ? '1px solid #f9fafb' : 'none' }}>
+              <div style={{ fontSize: 18, fontWeight: 700, color: '#1e3a6e', minWidth: 52 }}>{a.time}</div>
+              <div style={{ width: 2, height: 36, background: '#dbeafe', borderRadius: 2, flexShrink: 0 }} />
+              <Avatar name={a.patient} size={34} />
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: 500 }}>{a.patient}</div>
+                <div style={{ fontSize: 11, color: '#9ca3af' }}>{a.type} · {a.duration} min{a.notes ? ` · ${a.notes}` : ''}</div>
+              </div>
+              <Badge variant="info">{a.duration}min</Badge>
+              <button onClick={() => deleteAppt(a.id)} style={{ background: 'none', border: 'none', color: '#d1d5db', cursor: 'pointer', fontSize: 18, padding: '0 4px' }} title="Eliminar">✕</button>
+            </div>
+          ))}
+        </Card>
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      <PageHeader title="Agenda" sub={`${appointments.length} citas programadas`} action={<Btn variant="primary" onClick={() => setShowForm(true)}>+ Nueva cita</Btn>} />
+
+      {upcoming.length === 0 && <Card style={{ textAlign: 'center', padding: 40, color: '#9ca3af', fontSize: 13 }}>Sin citas próximas. Añade la primera cita con el botón de arriba.</Card>}
+      {upcoming.map(d => <DateGroup key={d} date={d} apts={grouped[d]} />)}
+
+      {past.length > 0 && (
+        <details style={{ marginTop: 24 }}>
+          <summary style={{ cursor: 'pointer', fontSize: 13, color: '#9ca3af', fontWeight: 500, marginBottom: 12 }}>📁 Citas pasadas ({past.reduce((s,d) => s + grouped[d].length, 0)})</summary>
+          {past.map(d => <DateGroup key={d} date={d} apts={grouped[d]} />)}
+        </details>
+      )}
+
+      {showForm && (
+        <Modal title="Nueva cita" onClose={() => setShowForm(false)}
+          footer={<><Btn variant="ghost" onClick={() => setShowForm(false)}>Cancelar</Btn><Btn variant="primary" onClick={addAppt} disabled={!f.patientId}>Guardar</Btn></>}>
+          <Select label="Paciente *" value={f.patientId} onChange={u('patientId')}>
+            <option value="">Seleccionar paciente…</option>
+            {patients.map(p => <option key={p.id} value={p.id}>{p.nombre}</option>)}
+          </Select>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            <Input label="Fecha *" type="date" value={f.date} onChange={u('date')} />
+            <Select label="Hora *" value={f.time} onChange={u('time')}>
+              {HOURS.map(h => <option key={h} value={h}>{h}</option>)}
+            </Select>
+            <Input label="Duración (minutos)" type="number" value={f.duration} onChange={u('duration')} min="10" max="120" />
+            <Select label="Tipo de sesión" value={f.type} onChange={u('type')}>
+              {['individual','pareja','familia','grupo','supervisión','primera consulta'].map(o => <option key={o}>{o}</option>)}
+            </Select>
+          </div>
+          <Textarea label="Notas (opcional)" value={f.notes} onChange={u('notes')} placeholder="Observaciones, recordatorios…" style={{ minHeight: 60 }} />
+        </Modal>
+      )}
+    </div>
+  )
+}
+
+import React, { useState } from 'react'
+
+// Credentials stored as env variables for security
+// In production set VITE_USER and VITE_PASS in Vercel dashboard
+const VALID_USER = import.meta.env.VITE_USER || 'jaime'
+const VALID_PASS = import.meta.env.VITE_PASS || 'PsicoJaime2025!'
+
+export default function Login({ onLogin }) {
+  const [user, setUser] = useState('')
+  const [pass, setPass] = useState('')
+  const [error, setError] = useState('')
+  const [attempts, setAttempts] = useState(0)
+  const [blocked, setBlocked] = useState(false)
+  const [showPass, setShowPass] = useState(false)
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    if (blocked) return
+
+    if (user.trim() === VALID_USER && pass === VALID_PASS) {
+      setError('')
+      onLogin()
+    } else {
+      const newAttempts = attempts + 1
+      setAttempts(newAttempts)
+      if (newAttempts >= 5) {
+        setBlocked(true)
+        setError('Demasiados intentos fallidos. Recarga la página para volver a intentarlo.')
+        setTimeout(() => { setBlocked(false); setAttempts(0); setError('') }, 60000)
+      } else {
+        setError(`Usuario o contraseña incorrectos. Intento ${newAttempts} de 5.`)
+      }
+    }
+  }
+
+  return (
+    <div style={{
+      minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
+      background: 'linear-gradient(135deg, #1e3a6e 0%, #0f2044 100%)',
+      padding: 20,
+    }}>
+      <div style={{
+        background: '#fff', borderRadius: 16, padding: '40px 36px',
+        width: '100%', maxWidth: 400,
+        boxShadow: '0 24px 64px rgba(0,0,0,0.3)',
+      }}>
+        {/* Logo */}
+        <div style={{ textAlign: 'center', marginBottom: 32 }}>
+          <div style={{ fontSize: 44, marginBottom: 8 }}>🧠</div>
+          <h1 style={{ fontSize: 24, fontWeight: 700, color: '#1e3a6e', marginBottom: 4 }}>PsicoJaime</h1>
+          <p style={{ fontSize: 13, color: '#6b7280' }}>Consulta de Psicología Online</p>
+        </div>
+
+        <form onSubmit={handleSubmit}>
+          <div style={{ marginBottom: 16 }}>
+            <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              Usuario
+            </label>
+            <input
+              type="text"
+              value={user}
+              onChange={e => setUser(e.target.value)}
+              placeholder="Tu nombre de usuario"
+              autoComplete="username"
+              style={{
+                width: '100%', padding: '11px 14px', border: '1.5px solid #d1d5db',
+                borderRadius: 9, fontSize: 14, outline: 'none', boxSizing: 'border-box',
+                transition: 'border-color .2s',
+              }}
+              onFocus={e => e.target.style.borderColor = '#1e3a6e'}
+              onBlur={e => e.target.style.borderColor = '#d1d5db'}
+              disabled={blocked}
+            />
+          </div>
+
+          <div style={{ marginBottom: 22 }}>
+            <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              Contraseña
+            </label>
+            <div style={{ position: 'relative' }}>
+              <input
+                type={showPass ? 'text' : 'password'}
+                value={pass}
+                onChange={e => setPass(e.target.value)}
+                placeholder="Tu contraseña"
+                autoComplete="current-password"
+                style={{
+                  width: '100%', padding: '11px 44px 11px 14px', border: '1.5px solid #d1d5db',
+                  borderRadius: 9, fontSize: 14, outline: 'none', boxSizing: 'border-box',
+                  transition: 'border-color .2s',
+                }}
+                onFocus={e => e.target.style.borderColor = '#1e3a6e'}
+                onBlur={e => e.target.style.borderColor = '#d1d5db'}
+                disabled={blocked}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPass(!showPass)}
+                style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', fontSize: 16, color: '#9ca3af' }}
+              >
+                {showPass ? '🙈' : '👁'}
+              </button>
+            </div>
+          </div>
+
+          {error && (
+            <div style={{ background: '#fee2e2', border: '1px solid #fca5a5', borderRadius: 8, padding: '10px 14px', fontSize: 13, color: '#991b1b', marginBottom: 16 }}>
+              ⚠️ {error}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            disabled={blocked || !user || !pass}
+            style={{
+              width: '100%', padding: '12px', background: '#1e3a6e', color: '#fff',
+              border: 'none', borderRadius: 9, fontSize: 15, fontWeight: 600,
+              cursor: blocked || !user || !pass ? 'not-allowed' : 'pointer',
+              opacity: blocked || !user || !pass ? 0.6 : 1,
+              transition: 'opacity .2s',
+            }}
+          >
+            {blocked ? '🔒 Acceso bloqueado' : 'Acceder →'}
+          </button>
+        </form>
+
+        {/* RGPD notice */}
+        <div style={{
+          marginTop: 24, padding: '12px 14px', background: '#f0f9ff',
+          border: '1px solid #bae6fd', borderRadius: 8, fontSize: 11, color: '#0369a1', lineHeight: 1.6,
+        }}>
+          🔒 <strong>Protección de datos:</strong> Este sistema contiene datos de salud protegidos por el
+          RGPD (UE) 2016/679 y la LOPDGDD 3/2018. El acceso no autorizado constituye una infracción legal.
+          La sesión se cierra automáticamente tras 30 minutos de inactividad.
+        </div>
+
+        <p style={{ textAlign: 'center', fontSize: 11, color: '#d1d5db', marginTop: 20 }}>
+          PsicoJaime © {new Date().getFullYear()} · Uso exclusivo profesional
+        </p>
+      </div>
+    </div>
+  )
+}
